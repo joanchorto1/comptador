@@ -2,5 +2,6 @@
     <string name="app_name">Comptador</string>
     <string name="touchme">TOACM</string>
     <string name="timeText">Time: %1$d</string>
+    <string name="endGame">Time is finish</string>
     <string name="counter">COMPTADOR</string>
 </resources>
