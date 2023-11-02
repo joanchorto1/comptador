@@ -1,5 +1,6 @@
 package me.joanchortodev.android.comptador
 
+import android.annotation.SuppressLint
 import android.content.IntentSender.OnFinished
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -16,10 +17,10 @@ class MainActivity : ComponentActivity() {
     internal lateinit var Timetextview: TextView
     internal lateinit var comptadortextview: TextView
     internal var counter = 0
-    internal var time = 60
+    internal var time = 10
     internal var appStarted = false
     internal lateinit var countDownTimer: CountDownTimer
-    internal var initialCountDownTimer: Long = 60000
+    internal var initialCountDownTimer: Long = time.toLong() * 1000
     internal var intervalCountDownTimer: Long = 1000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,24 +55,35 @@ class MainActivity : ComponentActivity() {
 
     private fun incrementCounter() {
         counter += 1;
-        comptadortextview.text = counter.toString();
+        comptadortextview.text = "Points: "+counter.toString();
 
     }
 
     private fun resetGame() {
+        counter=0;
+        comptadortextview.text =counter.toString();
 
+        println(time)
+        Timetextview.text= getString(R.string.timeText, time)
 
+        initCountDown()
+
+        appStarted = false
     }
 
     private fun endGame() {
         Toast.makeText(this, getString(R.string.endGame), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.seePoints,counter), Toast.LENGTH_LONG).show()
+        resetGame()
     }
 
     private fun initCountDown() {
         countDownTimer = object : CountDownTimer(initialCountDownTimer, intervalCountDownTimer) {
+            @SuppressLint("StringFormatMatches")
             override fun onTick(millisUntilFinished: Long) {
                 val timeLeft = millisUntilFinished / 1000
-                Timetextview.text = timeLeft.toString()
+//                Timetextview.text = getString(R.string.timeText,timeLeft.toString())
+                Timetextview.text = "Time: " + timeLeft.toString()
             }
 
             override fun onFinish() {
