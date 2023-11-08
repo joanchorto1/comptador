@@ -12,6 +12,7 @@
         android:layout_marginStart="161dp"
         android:layout_marginEnd="162dp"
         android:text="@string/touchme"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -28,6 +29,8 @@
         android:layout_marginEnd="244dp"
         android:layout_marginBottom="625dp"
         android:text="@string/timeText"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.087"
@@ -41,6 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/counter"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -2,13 +2,21 @@ package me.joanchortodev.android.comptador
 
 import android.annotation.SuppressLint
 import android.content.IntentSender.OnFinished
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.Menu
+import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimeInput
+import androidx.core.os.BuildCompat
 
 
 class MainActivity : ComponentActivity() {
@@ -36,16 +44,39 @@ class MainActivity : ComponentActivity() {
 
         //TODO EXECUTAR LES FUNCIONS
 
-        tapmebutton.setOnClickListener {
+        tapmebutton.setOnClickListener {view ->
             if (!appStarted) {
                 startGame()
 
             }
+            val bounceAnimation =AnimationUtils.loadAnimation(this,R.anim.bounce)
+            view.startAnimation(bounceAnimation)
             incrementCounter()
         }
 
         Timetextview.text = getString(R.string.timeText, time)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.aboutAction){
+            showinfo()
+        }
+        return true
+    }
+
+
+    private fun showinfo() {
+        val dialogTitle = getString(R.string.aboutTitle, Build.VERSION_NAME)
+        val aboutMessage = getString(R.string.aboutMessage)
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(dialogTitle).setMessage(aboutMessage)
     }
 
     private fun startGame() {

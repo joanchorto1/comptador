@@ -5,4 +5,6 @@
     <string name="endGame">Time is finish</string>
     <string name="seePoints">Your points: %1$d</string>
     <string name="counter">Points: 0</string>
+    <string name="aboutTitle">Info</string>
+    <string name="aboutMessage">Creat per Joan Chorto v1.0</string>
 </resources>
