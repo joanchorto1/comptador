@@ -1,27 +1,32 @@
 package me.joanchortodev.android.comptador
 
 import android.annotation.SuppressLint
+import androidx.appcompat.app.AlertDialog
 import android.content.IntentSender.OnFinished
 import android.os.Build
+import android.os.Build.VERSION
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TimeInput
-import androidx.core.os.BuildCompat
+import com.google.android.material.snackbar.Snackbar
+
+import kotlin.math.log
 
 
 class MainActivity : ComponentActivity() {
 
     internal lateinit var tapmebutton: Button
+    internal lateinit var menuButton: Button
     internal lateinit var Timetextview: TextView
     internal lateinit var comptadortextview: TextView
     internal var counter = 0
@@ -39,6 +44,7 @@ class MainActivity : ComponentActivity() {
         tapmebutton = findViewById(R.id.tapmebutton)
         Timetextview = findViewById(R.id.Timetextview)
         comptadortextview = findViewById(R.id.comptadortextview)
+        menuButton = findViewById(R.id.menuButton)
 
         //Actualitzar o definir el valor inicial de ComptadorTextView
 
@@ -54,30 +60,45 @@ class MainActivity : ComponentActivity() {
             incrementCounter()
         }
 
+
         Timetextview.text = getString(R.string.timeText, time)
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return super.onCreateOptionsMenu(menu)
+        super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.menu,menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.aboutAction){
-            showinfo()
+        when (item.itemId) {
+            R.id.aboutAction -> {
+                showInfo()
+                return true
+            }
+            // Otros casos según sea necesario
+            else -> return super.onOptionsItemSelected(item)
         }
-        return true
+    }
+
+    private fun showInfo() {
+        Snackbar.make( findViewById(android.R.id.content),"Mensaje de texto", Snackbar.LENGTH_SHORT).show()
+
     }
 
 
-    private fun showinfo() {
-        val dialogTitle = getString(R.string.aboutTitle, Build.VERSION_NAME)
-        val aboutMessage = getString(R.string.aboutMessage)
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(dialogTitle).setMessage(aboutMessage)
-    }
+
+
+
+//    private fun showInfo() {
+//
+//        val dialogTitle = getString(R.string.aboutTitle)
+//        val aboutMessage = getString(R.string.aboutMessage)
+//        val builder = AlertDialog.Builder(this)
+//
+//        builder.setTitle(dialogTitle).setMessage(aboutMessage).create().show()
+//    }
 
     private fun startGame() {
         countDownTimer.start()
